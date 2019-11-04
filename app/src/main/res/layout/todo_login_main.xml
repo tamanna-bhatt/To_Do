@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="17dp"
+    android:layout_marginLeft="29dp"
+    android:layout_marginRight="29dp"
+    android:orientation="vertical"
+    tools:context=".ToDo_login_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/logo_todo" />
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="To Do"
+                android:textColor="#fd7f21"
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
+        <customfonts.MyTextView_Roboto_Regular
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Hello!"
+            android:textColor="#535353"
+            android:textSize="25sp" />
+
+        <customfonts.EditText_Roboto_Regular
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="#00000000"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="#535353"
+            android:textColorHint="#b8b8b8"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#e0e0e0" />
+
+        <customfonts.EditText_Roboto_Regular
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42.9dp"
+            android:background="#00000000"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="#535353"
+            android:textColorHint="#b8b8b8"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#e0e0e0" />
+
+
+        <customfonts.MyTextView_Roboto_Regular
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:gravity="end"
+            android:text="Forgot Password?"
+            android:textColor="#72707c"
+            android:textSize="14.5sp" />
+
+
+        <customfonts.MyTextView_Roboto_Regular
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/login_ract"
+            android:gravity="center"
+            android:paddingBottom="14.7dp"
+            android:paddingTop="14.7dp"
+            android:text="Log in"
+            android:textAllCaps="false"
+            android:textColor="#fe7d1f"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:orientation="horizontal">
+
+        <customfonts.MyTextView_Roboto_Light
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Still without an account?"
+            android:textColor="#72707c"
+            android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+
+            <customfonts.MyTextView_Roboto_Light
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create one "
+                android:textColor="#1377ec"
+                android:textSize="14sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1377ec" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

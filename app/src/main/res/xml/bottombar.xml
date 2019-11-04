@@ -1,0 +1,21 @@
+<tabs>
+    <tab
+        id="@+id/tab_favorites"
+        icon="@drawable/ic_home"
+        title = "Home"
+        inActiveColor="#a9a9aa"
+        activeColor="#484848"/>
+    <tab
+        id="@+id/tab_nearby"
+        icon="@drawable/ic_addtask"
+        title = "Add Task"
+        inActiveColor="#a9a9aa"
+        activeColor="#484848"/>
+    <tab
+        id="@+id/tab_friends"
+        icon="@drawable/ic_todaytask"
+        title = "Today’s Task"
+        inActiveColor="#a9a9aa"
+        activeColor="#484848"/>
+
+</tabs>

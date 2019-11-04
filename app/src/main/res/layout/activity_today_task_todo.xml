@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context=".Today_task_todo">
+
+    <include layout="@layout/toolbar_todaytask"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable"
+        app:tabGravity="fill"
+        app:tabTextColor="#b8b8b8"
+        app:tabSelectedTextColor="#fe7d1f"
+        android:background="#ffffff"
+        android:layout_marginTop="70dp"
+        app:tabIndicatorColor="#ffffff"
+        app:tabTextAppearance="@style/MyMenuTextAppearance1"
+        android:id="@+id/tablayout1"
+        android:elevation="5dp"/>
+
+
+
+
+
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewpager1"
+        android:background="#f5f5f5"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"/>
+
+    </LinearLayout>
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:bb_titleTextAppearance="@style/botoombar_textchange"
+        app:bb_titleTypeFace="fonts/Roboto-Regular.ttf"
+        android:layout_alignParentBottom="true"
+        app:bb_tabXmlResource="@xml/bottombar" />
+
+</RelativeLayout>

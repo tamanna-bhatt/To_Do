@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".Add_Task_Todo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_addtask" />
+
+        <LinearLayout
+            android:id="@+id/liner"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/shadow"
+            android:orientation="vertical" />
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="#ffffff">-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="2dp"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <customfonts.EditText_Roboto_Regular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="37dp"
+                    android:background="#00000000"
+                    android:hint="Name your task"
+                    android:textColor="#535353"
+                    android:textColorHint="#b8b8b8"
+                    android:textSize="22sp" />
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="39dp"
+                    android:background="#00000000"
+                    android:text="Choose Date &amp; Time"
+
+                    android:textColor="#a9a9aa"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/sp_car_name1"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/spinner_file"
+                    android:entries="@array/array_name"
+                    android:spinnerMode="dropdown" />
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#00000000"
+                    android:text="Remind me"
+                    android:textColor="#a9a9aa"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/sp_car_name"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/spinner_file"
+                    android:entries="@array/array_name_array"
+                    android:spinnerMode="dropdown" />
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Choose Category"
+                    android:textColor="#a9a9aa"
+                    android:textSize="15sp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#fe7d1f"
+                        android:clickable="true"
+                        android:scaleX="0.9"
+                        android:scaleY="0.9"
+                        android:shadowColor="@color/orange" />
+
+
+                    <customfonts.MyTextView_Roboto_Regular
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="Work"
+                        android:textColor="#3b3b3b"
+                        android:textSize="17sp" />
+
+                </RadioGroup>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#8e5cdd"
+                        android:clickable="true"
+                        android:scaleX="0.9"
+                        android:scaleY="0.9"
+                        android:shadowColor="@color/purple" />
+
+
+                    <customfonts.MyTextView_Roboto_Regular
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="Personal"
+                        android:textColor="#3b3b3b"
+                        android:textSize="17sp" />
+
+                </RadioGroup>
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#1377ec"
+                        android:clickable="true"
+                        android:scaleX="0.9"
+                        android:scaleY="0.9"
+                        android:shadowColor="@color/bluecolor" />
+
+
+                    <customfonts.MyTextView_Roboto_Regular
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="Health"
+                        android:textColor="#3b3b3b"
+                        android:textSize="17sp" />
+
+                </RadioGroup>
+
+
+                <customfonts.MyTextView_Roboto_Regular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Write short description"
+                    android:textColorHint="#b8b8b8"
+                    android:textColor="#535353"
+                    android:textSize="15sp" />
+
+                <customfonts.EditText_Roboto_Regular
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16.1dp"
+                    android:background="#00000000"
+                    android:hint="Message..."
+                    android:textColorHint="#b8b8b8"
+                    android:textColor="#535353"
+                    android:textSize="16.7sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#e0e0e0" />
+
+                <customfonts.Button_Roboto_Medium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="33.1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="35.3dp"
+                    android:background="@drawable/add_task_ract"
+                    android:text="Schedule Task"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        app:bb_titleTextAppearance="@style/botoombar_textchange"
+        app:bb_titleTypeFace="fonts/Roboto-Regular.ttf"
+        app:bb_tabXmlResource="@xml/bottombar" />
+</RelativeLayout>

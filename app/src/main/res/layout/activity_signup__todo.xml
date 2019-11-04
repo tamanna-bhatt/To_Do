@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="29dp"
+    android:layout_marginRight="29dp"
+    tools:context=".ToDo_login_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp">
+
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/logo_todo"/>
+
+        <customfonts.MyTextView_Roboto_Regular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="To Do"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:textColor="#fd7f21"/>
+
+
+    </LinearLayout>
+
+    <customfonts.MyTextView_Roboto_Regular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#535353"
+        android:text="Sign up"
+        android:layout_marginTop="35dp"
+        android:textSize="25sp"/>
+
+
+
+    <customfonts.MyTextView_Roboto_Light
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#72707c"
+        android:layout_marginTop="10dp"
+        android:text="Create an account to use To Do"
+        android:textSize="15sp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <customfonts.MyTextView_Roboto_Light
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="without limits. "
+            android:textColor="#fd7f21"
+            android:textSize="15sp"/>
+
+
+        <customfonts.MyTextView_Roboto_Light
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For free. "
+            android:textColor="#72707c"
+            android:textSize="15sp"/>
+
+
+
+
+    </LinearLayout>
+
+    <customfonts.EditText_Roboto_Regular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#535353"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#b8b8b8"
+        android:background="#00000000"
+        android:layout_marginTop="35dp"
+        android:textSize="15sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"
+        android:layout_marginTop="12dp"/>
+
+    <customfonts.EditText_Roboto_Regular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#535353"
+        android:hint="Password"
+        android:textColorHint="#b8b8b8"
+        android:inputType="textPassword"
+        android:background="#00000000"
+        android:layout_marginTop="35.9dp"
+        android:textSize="15sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="#e0e0e0"/>
+
+    <customfonts.EditText_Roboto_Regular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#535353"
+        android:hint="Repeate password"
+        android:inputType="textPassword"
+        android:textColorHint="#b8b8b8"
+        android:background="#00000000"
+        android:layout_marginTop="35dp"
+        android:textSize="15sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"
+        android:layout_marginTop="12dp"/>
+
+    <customfonts.MyTextView_Roboto_Regular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_ract"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:paddingBottom="14.7dp"
+        android:paddingTop="14.7dp"
+        android:layout_marginTop="65dp"
+        android:textColor="#1377ec"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="17dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="horizontal">
+
+        <customfonts.MyTextView_Roboto_Light
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I already have an account."
+            android:textColor="#72707c"
+            android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+
+        <customfonts.MyTextView_Roboto_Light
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Log in"
+            android:textColor="#fe7d1f"
+            android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#fe7d1f"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

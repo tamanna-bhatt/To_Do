@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ToDo_app</string>
+
+    <string-array name="array_name">
+        <item>Today, 9.30 — 10.30 AM</item>
+        <item>Today, 10.30 — 11.30 AM</item>
+        <item>Today, 11.30 — 12.30 AM</item>
+    </string-array>
+
+    <string-array name="array_name_array">
+        <item>Before 20 mins</item>
+        <item>Before 30 mins</item>
+        <item>Before 40 mins</item>
+    </string-array>
+
+    <string-array name="spinner">
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+</resources>
