@@ -96,6 +96,7 @@
         <customfonts.MyTextView_Roboto_Regular
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/btnLogin"
             android:layout_marginTop="35dp"
             android:background="@drawable/login_ract"
             android:gravity="center"
@@ -133,6 +134,7 @@
             <customfonts.MyTextView_Roboto_Light
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/txtCreateOne"
                 android:text="Create one "
                 android:textColor="#1377ec"
                 android:textSize="14sp" />
