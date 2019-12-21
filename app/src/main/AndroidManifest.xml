@@ -21,12 +21,11 @@
 
 
         </activity>
-        <activity android:name=".Add_Task_Todo">
+        <activity android:name=".Home_Todo">
 
 
         </activity>
-        <activity android:name=".Home_Todo">
-
+        <activity android:name=".Add_Task_Todo">
 
 
         </activity>

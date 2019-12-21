@@ -1,14 +1,10 @@
 package e.wolfsoft1.todo_app;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
@@ -16,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import az.plainpie.PieView;
-import az.plainpie.animation.PieAngleAnimation;
 
 public class Home_Todo extends AppCompatActivity {
 
