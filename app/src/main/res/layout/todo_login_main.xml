@@ -16,29 +16,29 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/logo_todo" />
+
+        <customfonts.MyTextView_Roboto_Regular
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:orientation="horizontal">
+            android:layout_marginLeft="5dp"
+            android:text="To Do"
+            android:textColor="#fd7f21"
+            android:textSize="25sp" />
 
 
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:src="@drawable/logo_todo" />
-
-            <customfonts.MyTextView_Roboto_Regular
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:text="To Do"
-                android:textColor="#fd7f21"
-                android:textSize="25sp" />
-
-
-        </LinearLayout>
+    </LinearLayout>
 
         <customfonts.MyTextView_Roboto_Regular
             android:layout_width="match_parent"

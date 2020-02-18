@@ -10,23 +10,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        android:gravity="center">
-
-    <customfonts.MyTextView_Roboto_Regular
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#535353"
-        android:text="To do "
-        android:layout_weight="1"
-        android:textSize="25sp"/>
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
 
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/logo_todo" />
 
-</LinearLayout>
+        <customfonts.MyTextView_Roboto_Regular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="To Do"
+            android:textColor="#fd7f21"
+            android:textSize="25sp" />
+
+
+    </LinearLayout>
+
 
 
 

@@ -12,6 +12,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -30,8 +31,9 @@ import static java.security.AccessController.getContext;
 public class Home_Todo extends AppCompatActivity {
 
     PieView pieView;
-    Spinner sp_car_name1;
+
     FloatingActionButton add;
+    FrameLayout frameButton;
     CircularProgressBar circularProgressBar;
     private MainRecyclerAdapter mAdapter;
     public ItemTouchHelperExtension mItemTouchHelper;
@@ -49,6 +51,16 @@ public class Home_Todo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__todo);
         add = (FloatingActionButton)findViewById(R.id.add);
+        frameButton =(FrameLayout)findViewById(R.id.frameButton);
+
+        frameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Home_Todo.this , Today_task_todo.class);
+                startActivity(i);
+
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,16 +115,10 @@ public class Home_Todo extends AppCompatActivity {
 //        pieView.setTextColor(getResources().getColor(R.color.customColor12));
 
 
-        sp_car_name1 = findViewById(R.id.sp_car_name1);
-//        sp_car_model = (Spinner)view.findViewById(R.id.sp_car_model);
-//
-        List<String> list = new ArrayList<String>();
-        list.add("Weekly ");
-        list.add("Monthly ");
-        list.add("Yearly");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(Home_Todo.this, R.layout.spinner, R.id.spinner_text, list);
-        sp_car_name1.setAdapter(dataAdapter);
+//
+
+
 
         recyclerView = findViewById(R.id.recycler1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Home_Todo.this);

@@ -36,9 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/viewpager1"
-        android:background="#f5f5f5"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="70dp"/>
+        android:background="#ffffff"
+        android:layout_marginTop="10dp" />
 
     </LinearLayout>
 
