@@ -230,11 +230,5 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/bottombar"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
-        app:menu="@xml/bottombar"/>
+
 </RelativeLayout>
