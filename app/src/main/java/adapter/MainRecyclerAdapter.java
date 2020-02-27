@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,30 +22,42 @@ import itemtouchhelperextension.Extension;
 import itemtouchhelperextension.ItemTouchHelperExtension;
 import model.WorklistModel;
 
+
 public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int ITEM_TYPE_RECYCLER_WIDTH = 1000;
     public static final int ITEM_TYPE_ACTION_WIDTH = 1001;
     public static final int ITEM_TYPE_ACTION_WIDTH_NO_SPRING = 1002;
     public static final int ITEM_TYPE_NO_SWIPE = 1003;
-    private List<WorklistModel> mDatas;
+    private  ArrayList<WorklistModel> mDatas;
     private Context mContext;
     private ItemTouchHelperExtension mItemTouchHelperExtension;
-
     public MainRecyclerAdapter(Context context) {
         mDatas = new ArrayList<>();
         mContext = context;
     }
 
-    public void setDatas(List<WorklistModel> datas) {
+    public void setDatas(ArrayList<WorklistModel> datas) {
         mDatas.clear();
         mDatas.addAll(datas);
     }
 
-    public void updateData(List<WorklistModel> datas) {
+//    public  ArrayList<WorklistModel> setDatas(ArrayList<WorklistModel> arrayList,WorklistModel wm) {
+//        if(arrayList == null)
+//            arrayList = new ArrayList<>();
+//        arrayList.add(wm);
+//        mDatas = arrayList;
+//        //this.notifyItemInserted(mDatas.size());
+//        return mDatas;
+//    }
+
+    public void updateData(ArrayList<WorklistModel> datas) {
         setDatas(datas);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
+//public void updateData(List<WorklistModel> datas,WorklistModel wm) {
+//        //setDatas(wm);
+//}
 
     public void setItemTouchHelperExtension(ItemTouchHelperExtension itemTouchHelperExtension) {
         mItemTouchHelperExtension = itemTouchHelperExtension;
@@ -168,7 +181,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public ItemBaseViewHolder(View itemView) {
             super(itemView);
-            mTextTitle = (TextView) itemView.findViewById(R.id.txtfishing);
+            mTextTitle = (TextView) itemView.findViewById(R.id.tvActivityInfo);
             mTextIndex = (TextView) itemView.findViewById(R.id.time);
             ovalblue=itemView.findViewById(R.id.ovalblue);
             lineblue=itemView.findViewById(R.id.lineblue);
@@ -178,7 +191,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         public void bind(WorklistModel testModel) {
-            mTextTitle.setText(testModel.txtfishing);
+            mTextTitle.setText(testModel.activityName);
             mTextIndex.setText(testModel.time);
             /*initialletter.setText(testModel.initialletter);
             timeperiod.setText(testModel.timeperiod);*/

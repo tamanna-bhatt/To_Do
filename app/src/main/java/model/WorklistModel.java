@@ -1,15 +1,39 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by wolfsoft4 on 8/1/19.
  */
 
-public class WorklistModel {
+public class WorklistModel implements Serializable {
+
+    public WorklistModel(boolean selected, String activityName, String time, String activityType, String activityDesc, String date, int position, int id) {
+        this.selected = selected;
+        this.activityName = activityName;
+        this.time = time;
+        this.activityType = activityType;
+        this.activityDesc = activityDesc;
+        this.date = date;
+        this.position = position;
+        this.id = id;
+    }
 
     public boolean selected=false;
 
-    public String txtfishing,time;
+
+    public  String  activityName,time,activityType,activityDesc,date;
     public int position;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int id;
 
     public boolean isSelected() {
         return selected;
@@ -27,15 +51,36 @@ public class WorklistModel {
         this.position = position;
     }
 
-
-
-
-    public String getTxtfishing() {
-        return txtfishing;
+    public String getActivityName() {
+        return activityName;
     }
 
-    public void setTxtfishing(String txtfishing) {
-        this.txtfishing = txtfishing;
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
+    }
+
+    public String getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType) {
+        this.activityType = activityType;
+    }
+
+    public String getActivityDesc() {
+        return activityDesc;
+    }
+
+    public void setActivityDesc(String activityDesc) {
+        this.activityDesc = activityDesc;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {
@@ -46,9 +91,5 @@ public class WorklistModel {
         this.time = time;
     }
 
-    public WorklistModel(int position, String txtfishing, String time) {
-        this.position=position;
-        this.txtfishing = txtfishing;
-        this.time = time;
-    }
+
 }

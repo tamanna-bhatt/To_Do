@@ -45,6 +45,7 @@
                 <customfonts.EditText_Roboto_Regular
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/edtActivityinfo"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="37dp"
                     android:background="#00000000"
@@ -164,13 +165,13 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#1377ec"
-                        android:clickable="true"
-                        android:scaleX="0.9"
-                        android:scaleY="0.9"
-                        android:shadowColor="@color/bluecolor" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#1377ec"
+                    android:clickable="true"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:shadowColor="@color/bluecolor" />
 
 
                     <customfonts.MyTextView_Roboto_Regular
@@ -180,6 +181,33 @@
                         android:text="Health"
                         android:textColor="#3b3b3b"
                         android:textSize="17sp" />
+
+
+                </RadioGroup>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/pink"
+                        android:clickable="true"
+                        android:scaleX="0.9"
+                        android:scaleY="0.9"
+                        android:shadowColor="@color/pink" />
+
+
+                    <customfonts.MyTextView_Roboto_Regular
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="Daily Activity"
+                        android:textColor="#3b3b3b"
+                        android:textSize="17sp" />
+
 
                 </RadioGroup>
 
@@ -214,6 +242,7 @@
                 <customfonts.Button_Roboto_Medium
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/btnScheduleTask"
                     android:layout_marginBottom="33.1dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"

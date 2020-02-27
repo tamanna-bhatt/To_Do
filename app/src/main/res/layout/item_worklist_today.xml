@@ -33,7 +33,7 @@ android:layout_marginBottom="7.7dp">
         android:orientation="vertical">
 
         <customfonts.MyTextView_Roboto_Regular
-            android:id="@+id/txtfishing"
+            android:id="@+id/tvActivityInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go fishing with Stephen"

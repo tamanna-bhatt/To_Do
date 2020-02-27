@@ -2,6 +2,9 @@ package e.wolfsoft1.todo_app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,9 +21,12 @@ import android.widget.Spinner;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataLayer.TodoDatabase;
 import adapter.MainRecyclerAdapter;
 import az.plainpie.PieView;
 import itemtouchhelperextension.ItemTouchHelperExtension;
@@ -35,21 +42,17 @@ public class Home_Todo extends AppCompatActivity {
     FloatingActionButton add;
     FrameLayout frameButton;
     CircularProgressBar circularProgressBar;
-    private MainRecyclerAdapter mAdapter;
+    private  MainRecyclerAdapter mAdapter;
     public ItemTouchHelperExtension mItemTouchHelper;
     public ItemTouchHelperExtension.Callback mCallback;
     private RecyclerView recyclerView;
     private ArrayList<WorklistModel> worklistModelArrayList;
-
-    String txtfishing[]={"Go fishing with Stephen","Meet according with design team..",
-            "Go fishing with Stephen"};
-
-    String time[]={"9:00am","9:00am","9:00am"};
-
+    private TodoDatabase todoDatabase = new TodoDatabase(this);;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__todo);
+
         add = (FloatingActionButton)findViewById(R.id.add);
         frameButton =(FrameLayout)findViewById(R.id.frameButton);
 
@@ -125,15 +128,11 @@ public class Home_Todo extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new MainRecyclerAdapter(Home_Todo.this);
 
-        recyclerView.setAdapter(mAdapter);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        mAdapter.updateData(createTestDatas());
         mCallback = new ItemTouchHelperCallback();
         mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
         mAdapter.setItemTouchHelperExtension(mItemTouchHelper);
-        worklistModelArrayList = new ArrayList<>();
-
+        setMainAdapter();
 
 
 
@@ -153,16 +152,27 @@ public class Home_Todo extends AppCompatActivity {
 
     }
 
-    private List<WorklistModel> createTestDatas() {
-        List<WorklistModel> worklistModelArrayList = new ArrayList<>();
-        for (int i = 0; i < txtfishing.length; i++) {
-            WorklistModel testModel;
+    private void setMainAdapter() {
+            ArrayList<WorklistModel> worklistModelArrayList1 = new ArrayList<>();
+            try {
+                Intent intent = getIntent();
+                String act = intent.getStringExtra("a");
+                String time = intent.getStringExtra("t");
+                if(act != null) {
+                    WorklistModel wm = new WorklistModel(false,"Vandan","07:22 PM","Daily","This is Daily","02/26/2020",0,0);
+                    todoDatabase.addValues(wm);
+                    wm.id = todoDatabase.getId();
+                    worklistModelArrayList1.add(wm);
+                }
+                mAdapter.updateData(worklistModelArrayList1);
+                recyclerView.setAdapter(mAdapter);
+            }
+            catch(Exception io)
+            {
+                io.printStackTrace();
+            }
 
-            testModel = new WorklistModel(i, txtfishing[i], time[i]);
-            worklistModelArrayList.add(testModel);
-
-        }
-        return worklistModelArrayList;
     }
+
 
 }
