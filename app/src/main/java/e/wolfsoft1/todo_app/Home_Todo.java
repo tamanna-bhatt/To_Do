@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
@@ -42,6 +43,8 @@ public class Home_Todo extends AppCompatActivity {
     FloatingActionButton add;
     FrameLayout frameButton;
     CircularProgressBar circularProgressBar;
+    TextView isAlive;
+    TextView isDone;
     private  MainRecyclerAdapter mAdapter;
     public ItemTouchHelperExtension mItemTouchHelper;
     public ItemTouchHelperExtension.Callback mCallback;
@@ -55,7 +58,7 @@ public class Home_Todo extends AppCompatActivity {
 
         add = (FloatingActionButton)findViewById(R.id.add);
         frameButton =(FrameLayout)findViewById(R.id.frameButton);
-
+        //todoDatabase.onUpgrade(todoDatabase.getWritableDatabase(),1,2);
         frameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,14 +129,17 @@ public class Home_Todo extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Home_Todo.this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MainRecyclerAdapter(Home_Todo.this);
+        mAdapter = new MainRecyclerAdapter(this);
 
         mCallback = new ItemTouchHelperCallback();
         mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
         mAdapter.setItemTouchHelperExtension(mItemTouchHelper);
         setMainAdapter();
-
+        isAlive = (TextView) findViewById(R.id.isAlive);
+        isAlive.setText(String.valueOf(this.getisLive(todoDatabase)));
+        isAlive = (TextView) findViewById(R.id.isDone);
+        isAlive.setText(String.valueOf(this.getisDone(todoDatabase)));
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
@@ -156,22 +162,40 @@ public class Home_Todo extends AppCompatActivity {
             ArrayList<WorklistModel> worklistModelArrayList1 = new ArrayList<>();
             try {
                 Intent intent = getIntent();
-                String act = intent.getStringExtra("a");
-                String time = intent.getStringExtra("t");
-                if(act != null) {
-                    WorklistModel wm = new WorklistModel(false,"Vandan","07:22 PM","Daily","This is Daily","02/26/2020",0,0);
+                String actvityName = intent.getStringExtra("activityName");
+                String time = intent.getStringExtra("time");
+                String date = intent.getStringExtra("date");
+                String activityType = intent.getStringExtra("activityType");
+                String activityDesc = intent.getStringExtra("activityDesc");
+                if(actvityName != null) {
+                    WorklistModel wm = new WorklistModel(false,actvityName,time,activityType,activityDesc,date,0);
                     todoDatabase.addValues(wm);
                     wm.id = todoDatabase.getId();
-                    worklistModelArrayList1.add(wm);
+                    worklistModelArrayList1 = todoDatabase.getAllDailyActivities();
+                }
+                else
+                {
+                    worklistModelArrayList1 = todoDatabase.getAllDailyActivities();
                 }
                 mAdapter.updateData(worklistModelArrayList1);
-                recyclerView.setAdapter(mAdapter);
+                if(worklistModelArrayList1.size() > 0)
+                    recyclerView.setAdapter(mAdapter);
             }
             catch(Exception io)
             {
                 io.printStackTrace();
             }
 
+    }
+
+    private int getisLive(TodoDatabase td)
+    {
+        return td.getCountofisLive();
+    }
+
+    private int getisDone(TodoDatabase td)
+    {
+        return td.getCountofisDone();
     }
 
 

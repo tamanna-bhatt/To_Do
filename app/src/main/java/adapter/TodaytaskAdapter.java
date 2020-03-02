@@ -1,24 +1,25 @@
 package adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.res.ColorStateList;
+import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import DataLayer.TodoDatabase;
 import e.wolfsoft1.todo_app.R;
-import model.TodotodaytaskModel;
+import model.WorklistModel;
 
 public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyViewHolder> {
 
@@ -26,9 +27,9 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
     Context context;
 
     int myPos = 0;
-    private ArrayList<TodotodaytaskModel>todotodaytaskModelArrayList;
+    private ArrayList<WorklistModel>todotodaytaskModelArrayList;
 
-    public TodaytaskAdapter(Context context, ArrayList<TodotodaytaskModel> todotodaytaskModelArrayList) {
+    public TodaytaskAdapter(Context context, ArrayList<WorklistModel> todotodaytaskModelArrayList) {
         this.context = context;
         this.todotodaytaskModelArrayList = todotodaytaskModelArrayList;
     }
@@ -44,26 +45,25 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
 
     @SuppressLint("ResourceType")
     @Override
-    public void onBindViewHolder(@NonNull final TodaytaskAdapter.MyViewHolder holder, final int position) {
-        TodotodaytaskModel modelfoodrecycler = todotodaytaskModelArrayList.get(position);
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        final WorklistModel todayrecycler = todotodaytaskModelArrayList.get(position);
 
-        holder.todoimg.setImageResource(modelfoodrecycler.getTodoimg());
-        holder.todoimg2.setImageResource(modelfoodrecycler.getTodoimg2());
+
         //holder.tododottedimg.setImageResource(modelfoodrecycler.getTodoimg());
 
 
-        holder.todotext.setText(modelfoodrecycler.getTodotext());
-        holder.todotext2.setText(modelfoodrecycler.getTodotext2());
-        holder.todotext3.setText(modelfoodrecycler.getTodotext3());
-        holder.todotext4.setText(modelfoodrecycler.getTodotext4());
-        holder.todotext5.setText(modelfoodrecycler.getTodotext5());
+        holder.activityType.setText(todayrecycler.getActivityType());
+        holder.activityName.setText(todayrecycler.getActivityName());
+        holder.activityDesc.setText(todayrecycler.getActivityDesc());
+       // holder.date.setText(todayrecycler.getDate());
+        holder.time.setText(todayrecycler.getTime());
 
-        if(position==3){
+        /*if(position==3){
             holder.tododottedimg.setVisibility(View.GONE);
         }
         else {
             holder.tododottedimg.setVisibility(View.VISIBLE);
-        }
+        }*/
 
 
         //holder.radio.setButtonTintList(modelfoodrecycler.getRadio());
@@ -71,22 +71,129 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
 
 
 
-        if (position == 0){
-            holder.todotext2.setTextColor(Color.parseColor("#fe7d1f"));
+        if (holder.activityType.getText().equals("Work")){
+            holder.activityName.setTextColor(Color.parseColor("#fe7d1f"));
+            holder.activityType.setTextColor(Color.parseColor("#fe7d1f"));
+            holder.todoimg.setBackgroundResource(R.drawable.todaytaskorange_ract);
 
             // holder.hoteltext1.setBackgroundResource(Color.parseColor("ffffff"));
-        }else if(position == 1){
+        }else if(holder.activityType.getText().equals("Personal")){
 
-            holder.todotext2.setTextColor(Color.parseColor("#1377ec"));
+            holder.activityName.setTextColor(Color.parseColor("#8e5cdd"));
+            holder.activityType.setTextColor(Color.parseColor("#8e5cdd"));
+            holder.todoimg.setBackgroundResource(R.drawable.todaytaskpurple_ract);
             // holder.hoteltext1.setBackgroundColor(Color.parseColor("#00000000"));
-        }else if(position == 2) {
+        }else if(holder.activityType.getText().equals("Health")) {
 
-            holder.todotext2.setTextColor(Color.parseColor("#fe7d1f"));
-        }else if(position == 3) {
-
-            holder.todotext2.setTextColor(Color.parseColor("#8e5cdd"));
-
+            holder.activityName.setTextColor(Color.parseColor("#1377ec"));
+            holder.activityType.setTextColor(Color.parseColor("#1377ec"));
+            holder.todoimg.setBackgroundResource(R.drawable.todaytaskblue_ract);
         }
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if(holder.checkBox.isChecked() == false)
+                    holder.checkBox.setChecked(false);
+                else if(holder.checkBox.isChecked() == true)
+                    holder.checkBox.setChecked(true);
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                if(holder.checkBox.isChecked()==false) {
+                    alertDialog.setTitle("Completed Task !");
+                    alertDialog.setMessage("Are you sure you have completed your task ? ");
+                }
+                else{
+                    alertDialog.setTitle("Undo Task !");
+                    alertDialog.setMessage("Are you sure you want to undo task? ");
+
+                }
+
+                alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if(holder.checkBox.isChecked() == false)
+                         holder.checkBox.setChecked(false);
+                        else if(holder.checkBox.isChecked() == true)
+                            holder.checkBox.setChecked(true);
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if(todayrecycler.isSelected() == false)
+                            holder.checkBox.setChecked(true);
+
+                        else if (todayrecycler.isSelected() == true)
+                            holder.checkBox.setChecked(true);
+                    }
+                });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+
+            }
+        });
+
+//        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+//                if(holder.checkBox.isChecked()==false) {
+//                    alertDialog.setTitle("Completed Task !");
+//                    alertDialog.setMessage("Are you sure you have completed your task ? ");
+//                }
+//                else{
+//                    alertDialog.setTitle("Undo Task !");
+//                    alertDialog.setMessage("Are you sure you want to undo task? ");
+//
+//                }
+//                alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        if(holder.checkBox.isChecked() == false)
+//                         holder.checkBox.setChecked(false);
+//                        else if(holder.checkBox.isChecked() == true)
+//                            holder.checkBox.setChecked(true);
+//
+//
+//
+//
+//                        dialog.cancel();
+//                    }
+//                });
+//                alertDialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                        if(todayrecycler.isSelected() == false)
+//                            holder.checkBox.setChecked(true);
+//
+//                        else if (todayrecycler.isSelected() == true)
+//                            holder.checkBox.setChecked(true);
+//
+//
+//
+//
+//
+//                    }
+//                });
+//
+//                AlertDialog dialog = alertDialog.create();
+//                dialog.show();
+//
+//
+//            }
+//        });
+
+
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -100,12 +207,12 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
 
 
 //        if (myPos == 1){
-//            holder.todotext2.setTextColor(Color.parseColor("#1377ec"));
+//            holder.activityName.setTextColor(Color.parseColor("#1377ec"));
 //
 //            // holder.hoteltext1.setBackgroundResource(Color.parseColor("ffffff"));
 //        }else {
 //
-//            holder.todotext2.setTextColor(Color.parseColor("#26b63a"));
+//            holder.activityName.setTextColor(Color.parseColor("#26b63a"));
 //            // holder.hoteltext1.setBackgroundColor(Color.parseColor("#00000000"));
 //        }
 //
@@ -175,29 +282,29 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
 
 
 
-        if (position == 0){
-            holder.todoimg.setBackgroundResource(R.drawable.todaytaskorange_ract);
-        //   holder.radio.setButtonTintList(colorStateList1);//set the color tint list
-
-
-            // holder.hoteltext1.setBackgroundResource(Color.parseColor("ffffff"));
-        }else if(position == 1){
-
-            holder.todoimg.setBackgroundResource(R.drawable.todaytaskblue_ract);
-           // holder.radio.setButtonTintList(colorStateList);//set the color tint list
-
-            // holder.hoteltext1.setBackgroundColor(Color.parseColor("#00000000"));
-        }else if(position == 2) {
-
-
-            holder.todoimg.setBackgroundResource(R.drawable.todaytaskorange_ract);
-        }else if(position == 3) {
-
-            holder.todoimg.setBackgroundResource(R.drawable.todaytaskpurple_ract);
-            //holder.radio.setButtonTintList(colorStateList2);//set the color tint list
-
-
-        }
+//        if (position == 0){
+//            holder.todoimg.setBackgroundResource(R.drawable.todaytaskorange_ract);
+//        //   holder.radio.setButtonTintList(colorStateList1);//set the color tint list
+//
+//
+//            // holder.hoteltext1.setBackgroundResource(Color.parseColor("ffffff"));
+//        }else if(position == 1){
+//
+//            holder.todoimg.setBackgroundResource(R.drawable.todaytaskblue_ract);
+//           // holder.radio.setButtonTintList(colorStateList);//set the color tint list
+//
+//            // holder.hoteltext1.setBackgroundColor(Color.parseColor("#00000000"));
+//        }else if(position == 2) {
+//
+//
+//            holder.todoimg.setBackgroundResource(R.drawable.todaytaskorange_ract);
+//        }else if(position == 3) {
+//
+//            holder.todoimg.setBackgroundResource(R.drawable.todaytaskpurple_ract);
+//            //holder.radio.setButtonTintList(colorStateList2);//set the color tint list
+//
+//
+//        }
 
 
 //        if (position == 0){
@@ -230,22 +337,23 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView todotext,todotext2,todotext3,todotext4,todotext5;
+        TextView activityType, activityName, activityDesc, date, time;
        ImageView todoimg,tododottedimg,todoimg2;
+       CheckBox checkBox;
      //   RadioButton radio;
         public MyViewHolder(View itemView) {
             super(itemView);
 
 
-            todotext = (itemView).findViewById(R.id.todotext);
-            todotext2 = (itemView).findViewById(R.id.todotext2);
-            todotext3 = (itemView).findViewById(R.id.todotext3);
-            todotext4 = (itemView).findViewById(R.id.todotext4);
-            todotext5 = (itemView).findViewById(R.id.todotext5);
+            activityType = (itemView).findViewById(R.id.activityType);
+            activityName = (itemView).findViewById(R.id.activityName);
+            activityDesc = (itemView).findViewById(R.id.activityDesc);
+            time = (itemView).findViewById(R.id.time);
 
             tododottedimg = (itemView).findViewById(R.id.tododottedimg);
-            todoimg = (itemView).findViewById(R.id.todoimg);
-            todoimg2 = (itemView).findViewById(R.id.todoimg2);
+            todoimg = (itemView).findViewById(R.id.cardcolor);
+            checkBox = (itemView).findViewById(R.id.checkBox);
+
 
 
 

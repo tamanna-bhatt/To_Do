@@ -31,7 +31,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,48 +53,37 @@
                     android:textColor="#535353"
                     android:textColorHint="#b8b8b8"
                     android:textSize="22sp" />
-
-
                 <customfonts.MyTextView_Roboto_Regular
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="39dp"
+                    android:layout_marginTop="29dp"
                     android:background="#00000000"
-                    android:text="Choose Date &amp; Time"
-
+                    android:text="Choose Date"
                     android:textColor="#a9a9aa"
                     android:textSize="15sp" />
 
-                <Spinner
-                    android:id="@+id/sp_car_name1"
-                    android:layout_width="210dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:background="@drawable/spinner_file"
-                    android:entries="@array/array_name"
-                    android:spinnerMode="dropdown" />
-
-
-                <customfonts.MyTextView_Roboto_Regular
+                <customfonts.EditText_Roboto_Regular
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/date"
+                    android:onClick="setDate"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="29dp"
                     android:background="#00000000"
-                    android:text="Remind me"
+                    android:text="Choose Date"
                     android:textColor="#a9a9aa"
                     android:textSize="15sp" />
-
-                <Spinner
-                    android:id="@+id/sp_car_name"
-                    android:layout_width="150dp"
+                <customfonts.EditText_Roboto_Regular
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:background="@drawable/spinner_file"
-                    android:entries="@array/array_name_array"
-                    android:spinnerMode="dropdown" />
-
+                    android:id="@+id/time"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="29dp"
+                    android:background="#00000000"
+                    android:hint="Choose Time"
+                    android:textColor="#a9a9aa"
+                    android:textSize="15sp" />
 
                 <customfonts.MyTextView_Roboto_Regular
                     android:layout_width="match_parent"
@@ -108,8 +97,9 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/activityType"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -118,24 +108,10 @@
                         android:clickable="true"
                         android:scaleX="0.9"
                         android:scaleY="0.9"
-                        android:shadowColor="@color/orange" />
-
-
-                    <customfonts.MyTextView_Roboto_Regular
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
                         android:text="Work"
                         android:textColor="#3b3b3b"
-                        android:textSize="17sp" />
-
-                </RadioGroup>
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
+                        android:textSize="17sp"
+                        android:shadowColor="@color/orange" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -144,25 +120,10 @@
                         android:clickable="true"
                         android:scaleX="0.9"
                         android:scaleY="0.9"
-                        android:shadowColor="@color/purple" />
-
-
-                    <customfonts.MyTextView_Roboto_Regular
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
                         android:text="Personal"
                         android:textColor="#3b3b3b"
-                        android:textSize="17sp" />
-
-                </RadioGroup>
-
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
+                        android:textSize="17sp"
+                        android:shadowColor="@color/purple" />
 
                     <RadioButton
                     android:layout_width="wrap_content"
@@ -171,24 +132,10 @@
                     android:clickable="true"
                     android:scaleX="0.9"
                     android:scaleY="0.9"
-                    android:shadowColor="@color/bluecolor" />
-
-
-                    <customfonts.MyTextView_Roboto_Regular
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
                         android:text="Health"
                         android:textColor="#3b3b3b"
-                        android:textSize="17sp" />
-
-
-                </RadioGroup>
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
+                        android:textSize="17sp"
+                        android:shadowColor="@color/bluecolor" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -197,18 +144,10 @@
                         android:clickable="true"
                         android:scaleX="0.9"
                         android:scaleY="0.9"
-                        android:shadowColor="@color/pink" />
-
-
-                    <customfonts.MyTextView_Roboto_Regular
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
                         android:text="Daily Activity"
                         android:textColor="#3b3b3b"
-                        android:textSize="17sp" />
-
-
+                        android:textSize="17sp"
+                        android:shadowColor="@color/pink" />
                 </RadioGroup>
 
 
@@ -224,7 +163,8 @@
 
                 <customfonts.EditText_Roboto_Regular
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
+                    android:id="@+id/activityDesc"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="16.1dp"
                     android:background="#00000000"

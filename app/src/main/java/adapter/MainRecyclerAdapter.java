@@ -1,9 +1,14 @@
 package adapter;
 
+import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataLayer.TodoDatabase;
 import e.wolfsoft1.todo_app.R;
 import itemtouchhelperextension.Extension;
 import itemtouchhelperextension.ItemTouchHelperExtension;
@@ -83,57 +89,94 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final WorklistModel worklistModel=mDatas.get(position);
         final ItemBaseViewHolder baseViewHolder = (ItemBaseViewHolder) holder;
-
-
-
         baseViewHolder.bind(mDatas.get(position));
-        baseViewHolder.mViewContent.setOnClickListener(new View.OnClickListener() {
+
+        baseViewHolder.ovalblue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(worklistModel.isSelected()==false){
-                    baseViewHolder.lineblue.setImageResource(R.drawable.rect_red_line);
-                    baseViewHolder.ovalblue.setImageResource(R.drawable.ic_check_mark);
-                    worklistModel.setSelected(true);
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                if(worklistModel.isSelected()==false) {
+                    alertDialog.setTitle("Completed Task !");
+                    alertDialog.setMessage("Are you sure you have completed your task ? ");
+                }
+                else{
+                    alertDialog.setTitle("Undo Task !");
+                    alertDialog.setMessage("Are you sure you want to undo task? ");
 
                 }
+                alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(worklistModel.isSelected()==false){
 
-                else
-                {
-                    baseViewHolder.lineblue.setImageResource(R.drawable.rect_blue_line);
-                    baseViewHolder.ovalblue.setImageResource(R.drawable.ic_oval_blue);
-                    worklistModel.setSelected(false);
-                }
+                            baseViewHolder.lineblue.setImageResource(R.drawable.rect_blue_line);
+                            baseViewHolder.ovalblue.setImageResource(R.drawable.ic_oval_blue);
+                            worklistModel.setSelected(false);
+
+
+                        }
+
+                        else
+                        {
+                            baseViewHolder.lineblue.setImageResource(R.drawable.rect_red_line);
+                            baseViewHolder.ovalblue.setImageResource(R.drawable.ic_check_mark);
+                            worklistModel.setSelected(true);
+
+                        }
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(worklistModel.isSelected()==false){
+                            baseViewHolder.lineblue.setImageResource(R.drawable.rect_red_line);
+                            baseViewHolder.ovalblue.setImageResource(R.drawable.ic_check_mark);
+                            worklistModel.setSelected(true);
+                            TodoDatabase td = new TodoDatabase(mContext);
+                            td.updateTask(worklistModel);
+
+                        }
+
+                        else
+                        {
+                            baseViewHolder.lineblue.setImageResource(R.drawable.rect_blue_line);
+                            baseViewHolder.ovalblue.setImageResource(R.drawable.ic_oval_blue);
+                            worklistModel.setSelected(false);
+                        }
+
+
+
+                    }
+                });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+
+
             }
         });
         if (holder instanceof ItemViewHolderWithRecyclerWidth) {
             ItemViewHolderWithRecyclerWidth viewHolder = (ItemViewHolderWithRecyclerWidth) holder;
-            viewHolder.mActionViewDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    doDelete(holder.getAdapterPosition());
-                }
-            });
+//            viewHolder.mActionViewDelete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    TodoDatabase todoDatabase = new TodoDatabase(mContext);
+//                    doDelete(holder.getAdapterPosition(),todoDatabase);
+//                }
+//            });
         } else if (holder instanceof ItemSwipeWithActionWidthViewHolder) {
             ItemSwipeWithActionWidthViewHolder viewHolder = (ItemSwipeWithActionWidthViewHolder) holder;
-            viewHolder.mActionViewRefresh.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(mContext, "Refresh Click" + holder.getAdapterPosition()
-                                    , Toast.LENGTH_SHORT).show();
 
-                            mItemTouchHelperExtension.closeOpened();
-
-                        }
-
-                    }
-
-            );
             viewHolder.mActionViewDelete.setOnClickListener(
+
+
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            doDelete(holder.getAdapterPosition());
+                            TodoDatabase todoDatabase = new TodoDatabase(mContext);
+                            doDelete(holder.getAdapterPosition(),todoDatabase);
                         }
                     }
 
@@ -141,7 +184,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private void doDelete(int adapterPosition) {
+    private void doDelete(int adapterPosition,TodoDatabase todoDatabase) {
+
+        Log.e("msg","clicked");
+        if(todoDatabase != null)
+            todoDatabase.delectSingleEntry(mDatas.get(adapterPosition));
         mDatas.remove(adapterPosition);
         notifyItemRemoved(adapterPosition);
     }
@@ -154,9 +201,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        if (mDatas.get(position).position == position) {
-            return ITEM_TYPE_ACTION_WIDTH_NO_SPRING;
-        }
+//      if (mDatas.get(position).position == position) {
+//         return ITEM_TYPE_ACTION_WIDTH_NO_SPRING;
+//      }
 //        if (mDatas.get(position).position == 2) {
 //            return ITEM_TYPE_RECYCLER_WIDTH;
 //        }
@@ -174,7 +221,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public class ItemBaseViewHolder extends RecyclerView.ViewHolder {
         TextView mTextIndex, mTextTitle;
 
-        public View mViewContent;
+       public View mViewContent;
         public View mActionContainer;
         ImageView ovalblue,lineblue;
 
@@ -229,7 +276,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ItemSwipeWithActionWidthViewHolder(View itemView) {
             super(itemView);
             mActionViewDelete = itemView.findViewById(R.id.view_list_repo_action_delete);
-            mActionViewRefresh = itemView.findViewById(R.id.view_list_repo_action_update);
+         //  mActionViewRefresh = itemView.findViewById(R.id.view_list_repo_action_update);
         }
 
         @Override

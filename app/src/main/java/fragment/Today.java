@@ -7,34 +7,36 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
+import DataLayer.TodoDatabase;
 import adapter.TabtodaytasktodoAdapter;
 import adapter.TodaytaskAdapter;
 import e.wolfsoft1.todo_app.R;
 import model.TodotodaytaskModel;
+import model.WorklistModel;
 
 public class Today extends Fragment{
 
-    String[] todotext = {"9.30 AM","1.00 PM","4.30 PM","7.00 AM"};
-    String[] todotext2 = {"Project meeting","Doctor appointment","Give project update to client","Continue with online course"};
-    String[] todotextt3 = {"9.30 — 10.30 AM","1.00 — 1.30 PM","4.30 — 4.45 PM","7.00 — 8.30 PM"};
-    String[] todotext4 = {"Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at…","Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros.","Mauris non tempor quam, et lacinia sapien. ","Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate."};
-    String[] todotext5 = {"Work","Health","Work","Personal"};
+    int position = 0;
 
-    Integer[] todoimg = {R.drawable.todaytaskorange_ract,R.drawable.todaytaskblue_ract,R.drawable.todaytaskorange_ract,R.drawable.todaytaskpurple_ract};
+
+   // Integer[] todoimg = {R.drawable.todaytaskorange_ract,R.drawable.todaytaskblue_ract,R.drawable.todaytaskorange_ract,R.drawable.todaytaskpurple_ract};
    // int[] radio = {R.drawable.todaytaskorange_ract,R.drawable.todaytaskblue_ract,R.drawable.todaytaskorange_ract,R.drawable.todaytaskpurple_ract};
-   Integer[] todoimg2 = {R.drawable.ic_circle_orange,R.drawable.ic_circle_blue,R.drawable.ic_circle_orange,R.drawable.ic_circle_purple};
+  // Integer[] todoimg2 = {R.drawable.ic_circle_orange,R.drawable.ic_circle_blue,R.drawable.ic_circle_orange,R.drawable.ic_circle_purple};
 
 
     private TodaytaskAdapter homepageAdapter;
     private RecyclerView recyclerview;
-    private ArrayList<TodotodaytaskModel> todotodaytaskModelArrayList;
-
+    private ArrayList<WorklistModel> todotodaytaskModelArrayList;
 
     @Nullable
     @Override
@@ -46,16 +48,33 @@ public class Today extends Fragment{
         recyclerview.setLayoutManager(layoutManager);
         recyclerview.setItemAnimator(new DefaultItemAnimator());
 
-        todotodaytaskModelArrayList = new ArrayList<>();
+        position = this.getArguments().getInt("position");
+        String date = showDate(position);
+        Log.i("date: ",date);
+        TodoDatabase todoDatabase = new TodoDatabase(getActivity());
+        todotodaytaskModelArrayList = todoDatabase.getdayActivities(date);
+        Log.i("Fragment: " + String.valueOf(position),String.valueOf(position));
 
-
-        for (int i = 0; i < todotext.length; i++) {
+        /*for (int i = 0; i < todotext.length; i++) {
             TodotodaytaskModel view1 = new TodotodaytaskModel(todotext[i], todotext2[i], todotextt3[i], todotext4[i],todotext5[i],todoimg[i],todoimg2[i]);
             todotodaytaskModelArrayList.add(view1);
         }
+        */
         homepageAdapter = new TodaytaskAdapter(getActivity(), todotodaytaskModelArrayList);
         recyclerview.setAdapter(homepageAdapter);
 
         return view;
+    }
+
+    public String showDate(int position) {
+        Date date = new Date(System.currentTimeMillis());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE,position); //minus number would decrement the days
+        String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+        String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+        String year  = String.valueOf(cal.get(Calendar.YEAR));
+        Log.i("showDate: ",month);
+        return (month + "/" + day +"/"+year);
     }
 }

@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import model.WorklistModel;
 
@@ -25,8 +29,8 @@ public class TodoDatabase extends SQLiteOpenHelper {
     private static final String KEY_DATE = "activity_date";
     private static final String KEY_TIME = "activity_time";
     private static final String KEY_DESC = "activity_description";
-
-    public TodoDatabase(@Nullable Context context) {
+    private static final String KEY_ISLIVE = "activity_islive";
+    public TodoDatabase( Context context) {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
@@ -35,7 +39,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
 
         String CREATE_ACTIVITY_TABLE = "CREATE TABLE " + TABLE_ACTIVITY + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TYPE + " TEXT," + KEY_NAME + " TEXT," + KEY_DATE + " TEXT," + KEY_TIME + " TEXT,"
-                + KEY_DESC + " TEXT" + ")";
+                + KEY_DESC + " TEXT," + KEY_ISLIVE + " BOOLEAN " +")";
 
         sqLiteDatabase.execSQL(CREATE_ACTIVITY_TABLE);
 
@@ -52,7 +56,6 @@ public class TodoDatabase extends SQLiteOpenHelper {
     public void addValues(WorklistModel  worklistModel) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
 
         values.put(KEY_TYPE , worklistModel.getActivityType());
@@ -60,6 +63,7 @@ public class TodoDatabase extends SQLiteOpenHelper {
         values.put(KEY_DATE , worklistModel.getDate());
         values.put(KEY_TIME ,worklistModel.getTime());
         values.put(KEY_DESC ,worklistModel.getActivityDesc());
+        values.put(KEY_ISLIVE,worklistModel.getisLive());
 
         sqLiteDatabase.insert(TABLE_ACTIVITY ,null,values);
         sqLiteDatabase.close();
@@ -68,7 +72,8 @@ public class TodoDatabase extends SQLiteOpenHelper {
 
     public void delectSingleEntry(WorklistModel worklistModel) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_ACTIVITY, KEY_ID + " = ?",
+        if(db != null)
+            db.delete(TABLE_ACTIVITY, KEY_ID + " = ?",
                 new String[] { String.valueOf(worklistModel.getId()) });
         db.close();
     }
@@ -101,6 +106,113 @@ public class TodoDatabase extends SQLiteOpenHelper {
         int id = Integer.parseInt(cursor.getString(index));
         cursor.close();
         return id;
+    }
+
+    public ArrayList<WorklistModel> getAllActivities() {
+        ArrayList<WorklistModel> activityList = new ArrayList<WorklistModel>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_ACTIVITY;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                WorklistModel worklistModel = new WorklistModel();
+                worklistModel.setId(cursor.getInt(0));
+                worklistModel.setActivityType(cursor.getString(1));
+                worklistModel.setActivityName(cursor.getString(2));
+                worklistModel.setDate(cursor.getString(3));
+                worklistModel.setTime(cursor.getString(4));
+                worklistModel.setActivityDesc(cursor.getString(5));
+
+                // Adding cart to list
+                activityList.add(worklistModel);
+            } while (cursor.moveToNext());
+        }
+        return activityList;
+    }
+
+    public ArrayList<WorklistModel> getAllDailyActivities(){
+        ArrayList<WorklistModel> dailyActivities = new ArrayList<WorklistModel>();
+        String selectQuery = "Select * FROM " + TABLE_ACTIVITY + " WHERE "+ KEY_TYPE + " = 'Daily Activity'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                WorklistModel worklistModel = new WorklistModel();
+                worklistModel.setId(cursor.getInt(0));
+                worklistModel.setActivityType(cursor.getString(1));
+                worklistModel.setActivityName(cursor.getString(2));
+                worklistModel.setDate(cursor.getString(3));
+                worklistModel.setTime(cursor.getString(4));
+                worklistModel.setActivityDesc(cursor.getString(5));
+
+
+                dailyActivities.add(worklistModel);
+            } while (cursor.moveToNext());
+        }
+        return dailyActivities;
+
+
+    }
+
+    public ArrayList<WorklistModel> getdayActivities(String date) {
+        ArrayList<WorklistModel> activityList = new ArrayList<WorklistModel>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_ACTIVITY + " WHERE " + KEY_DATE + " = '"+ date+"' AND " + KEY_TYPE + " != 'Daily Activity'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                WorklistModel worklistModel = new WorklistModel();
+                worklistModel.setId(cursor.getInt(0));
+                worklistModel.setActivityType(cursor.getString(1));
+                worklistModel.setActivityName(cursor.getString(2));
+                worklistModel.setDate(cursor.getString(3));
+                worklistModel.setTime(cursor.getString(4));
+                worklistModel.setActivityDesc(cursor.getString(5));
+                Log.i("records: ",worklistModel.getActivityType());
+                // Adding cart to list
+                activityList.add(worklistModel);
+            } while (cursor.moveToNext());
+        }
+        return activityList;
+    }
+
+    public  int getCountofisLive (){
+
+        String countQuery = "SELECT COUNT(*) as Count " + " FROM " + TABLE_ACTIVITY+ " WHERE " + KEY_ISLIVE + " = 1 ";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery,null);
+        cursor.moveToFirst();
+        int index= cursor.getColumnIndex("Count");
+        int count = Integer.parseInt(cursor.getString(index));
+        cursor.close();
+        return count;
+    }
+
+    public  int getCountofisDone (){
+
+        String countQuery = "SELECT COUNT(*) as Count " + " FROM " + TABLE_ACTIVITY+ " WHERE " + KEY_ISLIVE + " = 0 ";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery,null);
+        cursor.moveToFirst();
+        int index= cursor.getColumnIndex("Count");
+        int count = Integer.parseInt(cursor.getString(index));
+        cursor.close();
+        return count;
+    }
+
+    public void updateTask(WorklistModel worklistModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_ISLIVE,0);
+        db.update(TABLE_ACTIVITY,cv,KEY_ID + " = ?",new String[] { String.valueOf(worklistModel.getId()) });
+        db.close();
     }
 
 }

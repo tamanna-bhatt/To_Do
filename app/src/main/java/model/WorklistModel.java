@@ -8,22 +8,36 @@ import java.io.Serializable;
 
 public class WorklistModel implements Serializable {
 
-    public WorklistModel(boolean selected, String activityName, String time, String activityType, String activityDesc, String date, int position, int id) {
+    public WorklistModel(boolean selected, String activityName, String time, String activityType, String activityDesc, String date,int id) {
         this.selected = selected;
         this.activityName = activityName;
         this.time = time;
         this.activityType = activityType;
         this.activityDesc = activityDesc;
         this.date = date;
-        this.position = position;
+        //this.position = position;
         this.id = id;
+        this.isLive = true;
+    }
+
+    public WorklistModel() {
     }
 
     public boolean selected=false;
 
+    public boolean getisLive() {
+        return isLive;
+    }
+
+    public void setisLive(boolean live) {
+        isLive = live;
+    }
+
+    public boolean isLive = true;
+
 
     public  String  activityName,time,activityType,activityDesc,date;
-    public int position;
+    //public int position;
 
     public int getId() {
         return id;
@@ -43,13 +57,13 @@ public class WorklistModel implements Serializable {
         this.selected = selected;
     }
 
-    public int getPosition() {
-        return position;
-    }
+//    public int getPosition() {
+//        return position;
+//    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
+//    public void setPosition(int position) {
+//        this.position = position;
+//    }
 
     public String getActivityName() {
         return activityName;

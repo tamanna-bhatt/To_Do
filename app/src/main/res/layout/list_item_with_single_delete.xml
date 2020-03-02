@@ -30,13 +30,13 @@
                 android:layout_height="match_parent"
                 android:background="#d6d6d6"/>
 
-            <ImageView
-                android:id="@+id/view_list_repo_action_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="9dp"
-                android:src="@drawable/ic_edit"/>
+            <!--<ImageView-->
+                <!--android:id="@+id/view_list_repo_action_update"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="9dp"-->
+                <!--android:src="@drawable/ic_edit"/>-->
 
             <View
                 android:layout_width="1dp"

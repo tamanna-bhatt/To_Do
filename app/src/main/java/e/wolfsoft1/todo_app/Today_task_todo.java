@@ -4,6 +4,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import adapter.TabtodaytasktodoAdapter;
 
@@ -13,13 +20,22 @@ public class Today_task_todo extends AppCompatActivity {
     ViewPager viewPager1;
     TabLayout tabLayout1;
     TabtodaytasktodoAdapter adapter;
+    Calendar calendar;
+    int month_int;
+    String month,day,year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today_task_todo);
+        calendar = Calendar.getInstance();
+        day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) ;
+        Date date1=new Date(System.currentTimeMillis());
+        Log.e("date1",date1.toString());
 
-
+        month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
+        year =Integer.toString(calendar.get(Calendar.YEAR));
+        month_int= calendar.get(Calendar.MONTH);
 
         tabLayout1 = findViewById(R.id.tablayout1);
 
@@ -30,14 +46,12 @@ public class Today_task_todo extends AppCompatActivity {
 
 
         tabLayout1.addTab(tabLayout1.newTab().setText("Today"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("Tommorow"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("15"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("16"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("17"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("18"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("19"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("20"));
-        tabLayout1.addTab(tabLayout1.newTab().setText("21"));
+        tabLayout1.addTab(tabLayout1.newTab().setText("Tomorrow"));
+        tabLayout1.addTab(tabLayout1.newTab().setText(String.valueOf(NextDay(date1,2))));
+        tabLayout1.addTab(tabLayout1.newTab().setText(String.valueOf(NextDay(date1,3))));
+        tabLayout1.addTab(tabLayout1.newTab().setText(String.valueOf(NextDay(date1,4))));
+
+
 
 
 
@@ -57,7 +71,7 @@ public class Today_task_todo extends AppCompatActivity {
 
         adapter = new TabtodaytasktodoAdapter(getSupportFragmentManager(), tabLayout1.getTabCount());
         viewPager1.setAdapter(adapter);
-        viewPager1.setOffscreenPageLimit(3);
+        viewPager1.setOffscreenPageLimit(4);
         viewPager1.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout1));
         tabLayout1.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -80,6 +94,25 @@ public class Today_task_todo extends AppCompatActivity {
 
 
     }
+
+
+    public String NextDay(Date date , Integer no)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, no); //minus number would decrement the days
+        String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+       String month1 = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
+        return (day + " " + month1);
+
+    }
+
+    /*private String showDate(int year, int day,int month) {
+
+        StringBuilder sb = new StringBuilder();
+        return (sb.append(month_int).append("/")
+                .append(day).append("/").append(year)).toString();
+    }*/
     }
 
 
