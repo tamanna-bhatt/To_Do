@@ -17,8 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import DataLayer.TodoDatabase;
-import ToDoApp.Home_Todo;
-import ToDoApp.R;
+import e.wolfsoft1.todo_app.ToDoApp.Home_Todo;
+import e.wolfsoft1.todo_app.ToDoApp.R;
 import itemtouchhelperextension.Extension;
 import itemtouchhelperextension.ItemTouchHelperExtension;
 import model.WorklistModel;

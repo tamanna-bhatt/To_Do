@@ -31,7 +31,7 @@ import android.view.animation.Interpolator;
 import java.util.ArrayList;
 import java.util.List;
 
-import ToDoApp.R;
+import e.wolfsoft1.todo_app.ToDoApp.R;
 
 
 public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration

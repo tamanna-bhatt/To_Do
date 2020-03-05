@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import DataLayer.TodoDatabase;
-import ToDoApp.R;
+import e.wolfsoft1.todo_app.ToDoApp.R;
 import model.WorklistModel;
 
 public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyViewHolder> {

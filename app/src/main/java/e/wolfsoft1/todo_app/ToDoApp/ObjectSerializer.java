@@ -1,4 +1,4 @@
-package ToDoApp;
+package e.wolfsoft1.todo_app.ToDoApp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

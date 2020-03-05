@@ -8,7 +8,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.support.v7.widget.helper.ItemTouchUIUtil;
 import android.view.View;
 
-import ToDoApp.R;
+import e.wolfsoft1.todo_app.ToDoApp.R;
 
 
 /**

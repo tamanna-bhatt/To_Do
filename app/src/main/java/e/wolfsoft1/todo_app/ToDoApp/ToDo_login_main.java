@@ -1,4 +1,4 @@
-package ToDoApp;
+package e.wolfsoft1.todo_app.ToDoApp;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
