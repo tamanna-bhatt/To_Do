@@ -10,15 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import DataLayer.TodoDatabase;
-import e.wolfsoft1.todo_app.R;
+import ToDoApp.R;
 import model.WorklistModel;
 
 public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyViewHolder> {
@@ -57,6 +55,11 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
         holder.activityDesc.setText(todayrecycler.getActivityDesc());
        // holder.date.setText(todayrecycler.getDate());
         holder.time.setText(todayrecycler.getTime());
+        todayrecycler.selected = !todayrecycler.isLive;
+        if(todayrecycler.selected)
+            holder.checkBox.setImageResource(R.drawable.ic_check_mark);
+
+
 
         /*if(position==3){
             holder.tododottedimg.setVisibility(View.GONE);
@@ -89,55 +92,82 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
             holder.activityType.setTextColor(Color.parseColor("#1377ec"));
             holder.todoimg.setBackgroundResource(R.drawable.todaytaskblue_ract);
         }
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                if(holder.checkBox.isChecked() == false)
-                    holder.checkBox.setChecked(false);
-                else if(holder.checkBox.isChecked() == true)
-                    holder.checkBox.setChecked(true);
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                if(holder.checkBox.isChecked()==false) {
+                if(todayrecycler.isSelected() == false) {
                     alertDialog.setTitle("Completed Task !");
                     alertDialog.setMessage("Are you sure you have completed your task ? ");
                 }
                 else{
                     alertDialog.setTitle("Undo Task !");
                     alertDialog.setMessage("Are you sure you want to undo task? ");
-
                 }
-
                 alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(todayrecycler.isSelected()==false){
 
-                        if(holder.checkBox.isChecked() == false)
-                         holder.checkBox.setChecked(false);
-                        else if(holder.checkBox.isChecked() == true)
-                            holder.checkBox.setChecked(true);
+                            holder.checkBox.setImageResource(R.drawable.ic_unchecked);
+
+                            todayrecycler.setSelected(false);
+
+
+                        }
+
+                        else
+                        {
+                            holder.checkBox.setImageResource(R.drawable.ic_check_mark);
+
+                            todayrecycler.setSelected(true);
+
+                        }
                         dialog.cancel();
                     }
                 });
-
                 alertDialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        TodoDatabase td = new TodoDatabase(context);
+                        if(todayrecycler.isSelected()==false) {
+                            holder.checkBox.setImageResource(R.drawable.ic_check_mark);
 
-                        if(todayrecycler.isSelected() == false)
-                            holder.checkBox.setChecked(true);
+                            todayrecycler.setSelected(true);
+                            td.updateTask(todayrecycler, false);
 
-                        else if (todayrecycler.isSelected() == true)
-                            holder.checkBox.setChecked(true);
+
+
+
+
+                        }
+                        else
+                        {
+
+                            holder.checkBox.setImageResource(R.drawable.ic_unchecked);
+                            todayrecycler.setSelected(false);
+                            td.updateTask(todayrecycler, true);
+                          //  Home_Todo hd = new Home_Todo();
+
+
+
+                        }
+
+
+
                     }
                 });
 
                 AlertDialog dialog = alertDialog.create();
                 dialog.show();
 
+
             }
         });
+
+
 
 //        holder.checkBox.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -339,7 +369,7 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView activityType, activityName, activityDesc, date, time;
        ImageView todoimg,tododottedimg,todoimg2;
-       CheckBox checkBox;
+       ImageView checkBox;
      //   RadioButton radio;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -352,7 +382,7 @@ public class TodaytaskAdapter extends RecyclerView.Adapter<TodaytaskAdapter.MyVi
 
             tododottedimg = (itemView).findViewById(R.id.tododottedimg);
             todoimg = (itemView).findViewById(R.id.cardcolor);
-            checkBox = (itemView).findViewById(R.id.checkBox);
+            checkBox = (itemView).findViewById(R.id.checkbox);
 
 
 

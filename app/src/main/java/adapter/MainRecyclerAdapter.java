@@ -1,11 +1,8 @@
 package adapter;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,15 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import DataLayer.TodoDatabase;
-import e.wolfsoft1.todo_app.R;
+import ToDoApp.Home_Todo;
+import ToDoApp.R;
 import itemtouchhelperextension.Extension;
 import itemtouchhelperextension.ItemTouchHelperExtension;
 import model.WorklistModel;
@@ -96,14 +91,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             public void onClick(View view) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-                if(worklistModel.isSelected()==false) {
+                if(worklistModel.isSelected() == false) {
                     alertDialog.setTitle("Completed Task !");
                     alertDialog.setMessage("Are you sure you have completed your task ? ");
                 }
                 else{
                     alertDialog.setTitle("Undo Task !");
                     alertDialog.setMessage("Are you sure you want to undo task? ");
-
                 }
                 alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
@@ -120,7 +114,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         else
                         {
                             baseViewHolder.lineblue.setImageResource(R.drawable.rect_red_line);
-                            baseViewHolder.ovalblue.setImageResource(R.drawable.ic_check_mark);
+                            baseViewHolder.ovalblue.setImageResource(R.drawable.checked);
                             worklistModel.setSelected(true);
 
                         }
@@ -130,20 +124,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 alertDialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(worklistModel.isSelected()==false){
+                        TodoDatabase td = new TodoDatabase(mContext);
+                        if(worklistModel.isSelected()==false) {
                             baseViewHolder.lineblue.setImageResource(R.drawable.rect_red_line);
-                            baseViewHolder.ovalblue.setImageResource(R.drawable.ic_check_mark);
+                            baseViewHolder.ovalblue.setImageResource(R.drawable.checked);
                             worklistModel.setSelected(true);
-                            TodoDatabase td = new TodoDatabase(mContext);
-                            td.updateTask(worklistModel);
-
+                            td.updateTask(worklistModel, false);
+                            Home_Todo hd = (Home_Todo)mContext;
+                            hd.updateDoneCount(td.getCountofisDone());
+                            hd.updateisLiveCount(td.getCountofisLive());
                         }
-
                         else
                         {
                             baseViewHolder.lineblue.setImageResource(R.drawable.rect_blue_line);
                             baseViewHolder.ovalblue.setImageResource(R.drawable.ic_oval_blue);
                             worklistModel.setSelected(false);
+                            td.updateTask(worklistModel,true);
+                            Home_Todo hd = (Home_Todo)mContext;
+                            hd.updateDoneCount(td.getCountofisDone());
+                            hd.updateisLiveCount(td.getCountofisLive());
                         }
 
 
@@ -240,6 +239,18 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public void bind(WorklistModel testModel) {
             mTextTitle.setText(testModel.activityName);
             mTextIndex.setText(testModel.time);
+            Log.e("isLive",String.valueOf(testModel.isLive));
+            if(testModel.getisLive()== false) {
+                testModel.selected = true;
+                ovalblue.setImageResource(R.drawable.checked);
+                lineblue.setImageResource(R.drawable.rect_red_line);
+            }
+            else {
+                testModel.selected = false;
+                ovalblue.setImageResource(R.drawable.ic_oval_blue);
+                lineblue.setImageResource(R.drawable.rect_blue_line);
+            }
+
             /*initialletter.setText(testModel.initialletter);
             timeperiod.setText(testModel.timeperiod);*/
 
@@ -303,6 +314,5 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
         }
     }
-
 
 }

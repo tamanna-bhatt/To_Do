@@ -148,7 +148,10 @@ public class TodoDatabase extends SQLiteOpenHelper {
                 worklistModel.setDate(cursor.getString(3));
                 worklistModel.setTime(cursor.getString(4));
                 worklistModel.setActivityDesc(cursor.getString(5));
-
+                if(cursor.getString(6).equals("0"))
+                    worklistModel.setisLive(false);
+                else if(cursor.getString(6).equals("1"))
+                    worklistModel.setisLive(true);
 
                 dailyActivities.add(worklistModel);
             } while (cursor.moveToNext());
@@ -175,7 +178,10 @@ public class TodoDatabase extends SQLiteOpenHelper {
                 worklistModel.setDate(cursor.getString(3));
                 worklistModel.setTime(cursor.getString(4));
                 worklistModel.setActivityDesc(cursor.getString(5));
-                Log.i("records: ",worklistModel.getActivityType());
+                if(cursor.getString(6).equals("0"))
+                    worklistModel.setisLive(false);
+                else if(cursor.getString(6).equals("1"))
+                    worklistModel.setisLive(true);
                 // Adding cart to list
                 activityList.add(worklistModel);
             } while (cursor.moveToNext());
@@ -207,10 +213,10 @@ public class TodoDatabase extends SQLiteOpenHelper {
         return count;
     }
 
-    public void updateTask(WorklistModel worklistModel) {
+    public void updateTask(WorklistModel worklistModel,Boolean flag) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(KEY_ISLIVE,0);
+        cv.put(KEY_ISLIVE,flag);
         db.update(TABLE_ACTIVITY,cv,KEY_ID + " = ?",new String[] { String.valueOf(worklistModel.getId()) });
         db.close();
     }

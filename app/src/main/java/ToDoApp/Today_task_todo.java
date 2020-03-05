@@ -1,13 +1,12 @@
-package e.wolfsoft1.todo_app;
+package ToDoApp;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -69,6 +68,7 @@ public class Today_task_todo extends AppCompatActivity {
 //            }
 //        }
 
+
         adapter = new TabtodaytasktodoAdapter(getSupportFragmentManager(), tabLayout1.getTabCount());
         viewPager1.setAdapter(adapter);
         viewPager1.setOffscreenPageLimit(4);
@@ -95,6 +95,12 @@ public class Today_task_todo extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Today_task_todo.this,Home_Todo.class);
+        startActivity(intent);
+    }
+
 
     public String NextDay(Date date , Integer no)
     {
@@ -106,6 +112,7 @@ public class Today_task_todo extends AppCompatActivity {
         return (day + " " + month1);
 
     }
+
 
     /*private String showDate(int year, int day,int month) {
 

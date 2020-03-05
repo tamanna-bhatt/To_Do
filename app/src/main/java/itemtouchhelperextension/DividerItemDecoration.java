@@ -26,7 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import e.wolfsoft1.todo_app.R;
+import ToDoApp.R;
 
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {

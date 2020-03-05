@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "e.wolfsoft1.todo_app"
+        applicationId "e.wolfsoft1.todoApp"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1

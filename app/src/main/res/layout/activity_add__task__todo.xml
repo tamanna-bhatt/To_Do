@@ -53,39 +53,68 @@
                     android:textColor="#535353"
                     android:textColorHint="#b8b8b8"
                     android:textSize="22sp" />
-                <customfonts.MyTextView_Roboto_Regular
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="29dp"
-                    android:background="#00000000"
-                    android:text="Choose Date"
-                    android:textColor="#a9a9aa"
-                    android:textSize="15sp" />
+                    android:layout_height="0.7dp"
+                    android:background="#b8b8b8"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_margin="10dp"/>
 
-                <customfonts.EditText_Roboto_Regular
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/date"
-                    android:onClick="setDate"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="29dp"
-                    android:background="#00000000"
-                    android:text="Choose Date"
-                    android:textColor="#a9a9aa"
-                    android:textSize="15sp" />
-                <customfonts.EditText_Roboto_Regular
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="setDate"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="29dp"
+                        android:background="#00000000"
+                        android:text=" Select Date : "
+                        android:textColor="#a9a9aa"
+                        android:textSize="15sp" />
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/date"
+                        android:onClick="setDate"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="29dp"
+                        android:background="#00000000"
+                        android:text="Choose Date"
+                        android:textColor="#a9a9aa"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/time"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="29dp"
-                    android:background="#00000000"
-                    android:hint="Choose Time"
-                    android:textColor="#a9a9aa"
-                    android:textSize="15sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="29dp"
+                        android:background="#00000000"
+                        android:text=" Slecte Time : "
+                        android:textColor="#a9a9aa"
+                        android:textSize="15sp" />
+                    <customfonts.MyTextView_Roboto_Bold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/time"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="29dp"
+                        android:background="#00000000"
+                        android:hint="Choose Time"
+                        android:textColor="#a9a9aa"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                <customfonts.MyTextView_Roboto_Regular
+                <customfonts.MyTextView_Roboto_Bold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -151,7 +180,7 @@
                 </RadioGroup>
 
 
-                <customfonts.MyTextView_Roboto_Regular
+                <customfonts.MyTextView_Roboto_Bold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -163,7 +192,7 @@
 
                 <customfonts.EditText_Roboto_Regular
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="120dp"
                     android:id="@+id/activityDesc"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="16.1dp"

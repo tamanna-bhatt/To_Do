@@ -1,8 +1,10 @@
-package e.wolfsoft1.todo_app;
+package ToDoApp;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,15 +21,13 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import model.WorklistModel;
-
 public class Add_Task_Todo extends AppCompatActivity {
 
     DatePicker datePicker;
     TimePickerDialog timePickerDialog;
     Calendar calendar;
     Button btnScheduleTask;
-    EditText date , time;
+    TextView date , time;
     RadioGroup activityType;
     RadioButton activitySelected;
     int day,month,year,currentHour,currentMinute;
@@ -43,8 +43,8 @@ public class Add_Task_Todo extends AppCompatActivity {
         );
         btnScheduleTask = (Button)findViewById(R.id.btnScheduleTask);
         edtActivityinfo =(EditText)findViewById(R.id.edtActivityinfo);
-        date =(EditText) findViewById(R.id.date);
-        time =(EditText) findViewById(R.id.time);
+        date =(TextView) findViewById(R.id.date);
+        time =(TextView) findViewById(R.id.time);
         activityType=(RadioGroup)findViewById(R.id.activityType);
         activityDesc=(EditText)findViewById(R.id.activityDesc);
 
@@ -54,6 +54,8 @@ public class Add_Task_Todo extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
         showDate(year, day,month+1);
+        time.setText(Integer.toString(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + Integer.toString(calendar.get(Calendar.MINUTE))  + amPm(calendar.get(Calendar.HOUR_OF_DAY)));
+
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +72,7 @@ public class Add_Task_Todo extends AppCompatActivity {
                         } else {
                             amPm = "AM";
                         }
-                        time.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        time.setText(String.format("%02d:%02d", hourOfDay, minutes) +  amPm);
                     }
                 }, currentHour, currentMinute, false);
 
@@ -85,17 +87,42 @@ public class Add_Task_Todo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                int selectedId=activityType.getCheckedRadioButtonId();
-                activitySelected=(RadioButton)findViewById(selectedId);
-                //Toast.makeText(Add_Task_Todo.this,activitySelected.getText(),Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(Add_Task_Todo.this ,Home_Todo.class);
-                i.putExtra("activityName",edtActivityinfo.getText().toString());
-                i.putExtra("time",time.getText().toString());
-                i.putExtra("date",date.getText().toString());
-                i.putExtra("activityType",activitySelected.getText().toString());
-                i.putExtra("activityDesc",activityDesc.getText().toString());
-                startActivity(i);
+                if (activityType.getCheckedRadioButtonId() == -1)
+                {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(Add_Task_Todo.this);
+                    alertDialog.setTitle("Alert !");
+                    alertDialog.setMessage("Please Select Activity Type ");
+
+                    alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
+
+                }
+                else
+                {
+                    int selectedId=activityType.getCheckedRadioButtonId();
+                    activitySelected=(RadioButton)findViewById(selectedId);
+                    //Toast.makeText(Add_Task_Todo.this,activitySelected.getText(),Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(Add_Task_Todo.this ,Home_Todo.class);
+                    i.putExtra("activityName",edtActivityinfo.getText().toString());
+                    i.putExtra("time",time.getText().toString());
+                    i.putExtra("date",date.getText().toString());
+                    i.putExtra("activityType",activitySelected.getText().toString());
+                    i.putExtra("activityDesc",activityDesc.getText().toString());
+                    startActivity(i);// one of the radio buttons is checked
+                }
+
+
+
+
             }
         });
 
@@ -132,5 +159,15 @@ public class Add_Task_Todo extends AppCompatActivity {
     private void showDate(int year, int day,int month) {
         date.setText(new StringBuilder().append(month).append("/")
                 .append(day).append("/").append(year));
+    }
+    private String amPm( int currentHour){
+        if (currentHour >= 12) {
+            amPm = "PM";
+        } else {
+            amPm = "AM";
+        }
+        return amPm;
+
+
     }
 }

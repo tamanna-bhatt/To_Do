@@ -1,10 +1,6 @@
-package e.wolfsoft1.todo_app;
+package ToDoApp;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -12,20 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import DataLayer.TodoDatabase;
 import adapter.MainRecyclerAdapter;
@@ -33,10 +22,9 @@ import az.plainpie.PieView;
 import itemtouchhelperextension.ItemTouchHelperExtension;
 import model.WorklistModel;
 import util.ItemTouchHelperCallback;
+import util.UpdateID;
 
-import static java.security.AccessController.getContext;
-
-public class Home_Todo extends AppCompatActivity {
+public class Home_Todo extends AppCompatActivity implements UpdateID {
 
     PieView pieView;
 
@@ -45,6 +33,7 @@ public class Home_Todo extends AppCompatActivity {
     CircularProgressBar circularProgressBar;
     TextView isAlive;
     TextView isDone;
+    TextView efficiency;
     private  MainRecyclerAdapter mAdapter;
     public ItemTouchHelperExtension mItemTouchHelper;
     public ItemTouchHelperExtension.Callback mCallback;
@@ -58,6 +47,9 @@ public class Home_Todo extends AppCompatActivity {
 
         add = (FloatingActionButton)findViewById(R.id.add);
         frameButton =(FrameLayout)findViewById(R.id.frameButton);
+        efficiency =(TextView)findViewById(R.id.efficiency);
+
+        efficiency.setText(String.valueOf(getEfeciency()) + " % \n" + "Efficiency" );
         //todoDatabase.onUpgrade(todoDatabase.getWritableDatabase(),1,2);
         frameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +93,7 @@ public class Home_Todo extends AppCompatActivity {
 //        circularProgressBar.setProgressBarWidth(getResources().getDimension(R.dimen.progressBarWidth));
 //        circularProgressBar.setBackgroundProgressBarWidth(getResources().getDimension(R.dimen.backgroundProgressBarWidth));
         int animationDuration = 2500; // 2500ms = 2,5s
-        circularProgressBar.setProgressWithAnimation(70, animationDuration); // Default duration = 1500ms
+        circularProgressBar.setProgressWithAnimation(getEfeciency(), animationDuration); // Default duration = 1500ms
 //
 //        PieView animatedPie = (PieView) findViewById(R.id.animated_pie_view_1);
 //
@@ -138,8 +130,8 @@ public class Home_Todo extends AppCompatActivity {
         setMainAdapter();
         isAlive = (TextView) findViewById(R.id.isAlive);
         isAlive.setText(String.valueOf(this.getisLive(todoDatabase)));
-        isAlive = (TextView) findViewById(R.id.isDone);
-        isAlive.setText(String.valueOf(this.getisDone(todoDatabase)));
+        isDone = (TextView) findViewById(R.id.isDone);
+        isDone.setText(String.valueOf(this.getisDone(todoDatabase)));
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
@@ -156,6 +148,7 @@ public class Home_Todo extends AppCompatActivity {
 
 
 
+
     }
 
     private void setMainAdapter() {
@@ -168,7 +161,7 @@ public class Home_Todo extends AppCompatActivity {
                 String activityType = intent.getStringExtra("activityType");
                 String activityDesc = intent.getStringExtra("activityDesc");
                 if(actvityName != null) {
-                    WorklistModel wm = new WorklistModel(false,actvityName,time,activityType,activityDesc,date,0);
+                    WorklistModel wm = new WorklistModel(false,actvityName,time,activityType,activityDesc,date,0,true);
                     todoDatabase.addValues(wm);
                     wm.id = todoDatabase.getId();
                     worklistModelArrayList1 = todoDatabase.getAllDailyActivities();
@@ -198,5 +191,25 @@ public class Home_Todo extends AppCompatActivity {
         return td.getCountofisDone();
     }
 
+    @Override
+    public void updateDoneCount(int no)
+    {
+        isDone.setText(String.valueOf(no));
+        efficiency.setText(String.valueOf(getEfeciency())+" % \n"+"Efficiency");
+    }
+    @Override
+    public void updateisLiveCount(int no)
+    {
+        isAlive.setText(String.valueOf(no));
+        efficiency.setText(String.valueOf(getEfeciency())+" % \n"+"Efficiency");
+    }
 
+    public int getEfeciency(){
+
+        if(getisLive(todoDatabase)+getisDone(todoDatabase) != 0) {
+            double val = (double) getisDone(todoDatabase) / (double) (getisLive(todoDatabase) + getisDone(todoDatabase));
+            return (int) (val * 100);
+        }
+        return 0;
+    }
 }

@@ -1,4 +1,4 @@
-package e.wolfsoft1.todo_app;
+package e.wolfsoft1.ToDoApp;
 
 import org.junit.Test;
 

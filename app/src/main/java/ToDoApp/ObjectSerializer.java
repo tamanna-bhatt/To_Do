@@ -1,6 +1,4 @@
-package e.wolfsoft1.todo_app;
-
-import android.util.Log;
+package ToDoApp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

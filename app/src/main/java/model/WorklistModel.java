@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class WorklistModel implements Serializable {
 
-    public WorklistModel(boolean selected, String activityName, String time, String activityType, String activityDesc, String date,int id) {
+    public WorklistModel(boolean selected, String activityName, String time, String activityType, String activityDesc, String date,int id,boolean isLive) {
         this.selected = selected;
         this.activityName = activityName;
         this.time = time;
@@ -17,13 +17,13 @@ public class WorklistModel implements Serializable {
         this.date = date;
         //this.position = position;
         this.id = id;
-        this.isLive = true;
+        this.isLive = isLive;
     }
 
     public WorklistModel() {
     }
 
-    public boolean selected=false;
+    public boolean selected;
 
     public boolean getisLive() {
         return isLive;

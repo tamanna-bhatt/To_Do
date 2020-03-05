@@ -15,13 +15,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import DataLayer.TodoDatabase;
-import adapter.TabtodaytasktodoAdapter;
 import adapter.TodaytaskAdapter;
-import e.wolfsoft1.todo_app.R;
-import model.TodotodaytaskModel;
+import ToDoApp.R;
 import model.WorklistModel;
 
 public class Today extends Fragment{
